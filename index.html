@@ -1,0 +1,1277 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Little Dream Shop</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Caveat:wght@400;600;700&family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --lilac: #c9b7f2;
+  --pink: #f3afc7;
+  --blue: #a9d9ed;
+  --cream: #fff1d4;
+  --yellow: #f6d875;
+  --mint: #b8dfc7;
+  --peach: #f4b99e;
+  --berry: #625078;
+  --white: #fffcf5;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--cream);
+  color: var(--berry);
+  font-family: 'Nunito', sans-serif;
+  overflow-x: hidden;
+}
+
+button {
+  font: inherit;
+  border: none;
+  cursor: pointer;
+}
+
+button:focus-visible {
+  outline: 3px solid var(--berry);
+  outline-offset: 4px;
+}
+
+.screen {
+  min-height: 100svh;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* AMBIENT BACKGROUND */
+
+.ambient {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 20;
+  overflow: hidden;
+}
+
+.sparkle {
+  position: absolute;
+  color: white;
+  opacity: .8;
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: .2; transform: scale(.7) rotate(0); }
+  50% { opacity: 1; transform: scale(1.2) rotate(30deg); }
+}
+
+.floaty {
+  animation: floaty 4s ease-in-out infinite;
+}
+
+@keyframes floaty {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+/* BUTTONS */
+
+.main-button {
+  padding: 14px 28px;
+  border-radius: 50px;
+  background: var(--berry);
+  color: white;
+  font-family: 'Baloo 2', cursive;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: .4px;
+  box-shadow: 0 6px 0 #493c5d;
+  transition: .2s ease;
+}
+
+.main-button:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 0 #493c5d;
+}
+
+.main-button:active {
+  transform: translateY(3px);
+  box-shadow: 0 2px 0 #493c5d;
+}
+
+.small-button {
+  background: var(--white);
+  color: var(--berry);
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-weight: 800;
+  box-shadow: 0 4px 0 rgba(98,80,120,.18);
+  transition: .2s;
+}
+
+.small-button:hover {
+  transform: translateY(-3px);
+}
+
+/* OPENING SCENE */
+
+#opening {
+  background:
+    radial-gradient(ellipse at 50% 90%, #fff8e7 0%, transparent 45%),
+    linear-gradient(160deg, #a9d9ed 0%, #c9b7f2 55%, #f3afc7 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 30px 20px;
+}
+
+.opening-content {
+  position: relative;
+  z-index: 2;
+  max-width: 650px;
+}
+
+.eyebrow {
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  opacity: .7;
+  margin-bottom: 14px;
+}
+
+.opening-title {
+  font-family: 'Baloo 2', cursive;
+  font-size: clamp(42px, 9vw, 82px);
+  line-height: .95;
+  font-weight: 800;
+  color: var(--berry);
+  text-shadow: 3px 4px 0 rgba(255,255,255,.5);
+}
+
+.opening-title span {
+  color: #fffaf0;
+  display: block;
+}
+
+.opening-subtitle {
+  font-family: 'Caveat', cursive;
+  font-size: clamp(21px, 4vw, 29px);
+  margin: 18px 0 25px;
+}
+
+.shop-illustration {
+  position: relative;
+  width: min(290px, 75vw);
+  height: 245px;
+  margin: 0 auto 24px;
+}
+
+.shop-building {
+  position: absolute;
+  width: 210px;
+  height: 155px;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  background: var(--cream);
+  border: 5px solid var(--berry);
+  border-radius: 15px 15px 8px 8px;
+  box-shadow: 0 9px 0 rgba(98,80,120,.18);
+}
+
+.shop-roof {
+  position: absolute;
+  width: 235px;
+  height: 75px;
+  left: 50%;
+  top: 30px;
+  transform: translateX(-50%);
+  background: var(--pink);
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+  filter: drop-shadow(0 4px 0 var(--berry));
+}
+
+.shop-roof::after {
+  content: '';
+  position: absolute;
+  inset: 10px 15px 0;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent 0 27px,
+    rgba(255,255,255,.65) 27px 50px
+  );
+}
+
+.shop-window {
+  position: absolute;
+  width: 55px;
+  height: 68px;
+  left: 22px;
+  top: 37px;
+  border: 4px solid var(--berry);
+  border-radius: 50% 50% 8px 8px;
+  background: var(--blue);
+}
+
+.shop-door {
+  position: absolute;
+  width: 49px;
+  height: 85px;
+  right: 25px;
+  bottom: 0;
+  background: var(--lilac);
+  border: 4px solid var(--berry);
+  border-bottom: 0;
+  border-radius: 25px 25px 0 0;
+}
+
+.shop-door::after {
+  content: '•';
+  position: absolute;
+  right: 6px;
+  top: 38px;
+  color: var(--berry);
+}
+
+.shop-sign {
+  position: absolute;
+  top: -17px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--yellow);
+  border: 3px solid var(--berry);
+  border-radius: 20px;
+  padding: 5px 16px;
+  font-family: 'Baloo 2', cursive;
+  font-weight: 800;
+  font-size: 13px;
+  white-space: nowrap;
+  z-index: 2;
+}
+
+.morrow {
+  position: absolute;
+  font-size: 62px;
+  top: -2px;
+  right: 0;
+  z-index: 3;
+  filter: drop-shadow(0 5px 3px rgba(98,80,120,.15));
+  animation: morrowFloat 3s ease-in-out infinite;
+}
+
+@keyframes morrowFloat {
+  0%, 100% { transform: translateY(0) rotate(-8deg); }
+  50% { transform: translateY(-13px) rotate(8deg); }
+}
+
+.opening-note {
+  font-size: 12px;
+  opacity: .7;
+  margin-top: 17px;
+}
+
+/* SHOP INTERIOR */
+
+#shop {
+  background:
+    radial-gradient(circle at 15% 15%, #fff9e8 0 2%, transparent 2.5%),
+    linear-gradient(145deg, #fff1d4, #f3afc7 65%, #c9b7f2);
+  padding: 55px 20px 70px;
+  text-align: center;
+}
+
+.section-heading {
+  font-family: 'Baloo 2', cursive;
+  font-size: clamp(35px, 7vw, 55px);
+  line-height: 1;
+  margin-bottom: 10px;
+}
+
+.section-subtitle {
+  font-family: 'Caveat', cursive;
+  font-size: 24px;
+  margin-bottom: 35px;
+}
+
+.welcome-morrow {
+  font-size: 56px;
+  margin-bottom: 10px;
+}
+
+.shelf-area {
+  max-width: 800px;
+  margin: auto;
+  padding: 25px;
+  background: rgba(255,252,245,.65);
+  border: 3px solid rgba(98,80,120,.2);
+  border-radius: 30px;
+  box-shadow: 0 12px 0 rgba(98,80,120,.1);
+}
+
+.shelf-label {
+  font-family: 'Baloo 2', cursive;
+  font-size: 21px;
+  margin-bottom: 22px;
+}
+
+.artifact-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+}
+
+.artifact {
+  min-height: 150px;
+  border-radius: 20px;
+  background: var(--white);
+  padding: 18px 10px;
+  box-shadow: 0 5px 0 rgba(98,80,120,.15);
+  transition: .25s;
+  color: var(--berry);
+}
+
+.artifact:hover {
+  transform: translateY(-8px) rotate(-2deg);
+  background: #fff8e8;
+}
+
+.artifact-icon {
+  font-size: 43px;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.artifact-name {
+  font-family: 'Baloo 2', cursive;
+  font-weight: 800;
+  font-size: 15px;
+}
+
+.artifact-hint {
+  font-size: 10px;
+  opacity: .6;
+  margin-top: 4px;
+}
+
+.shelf-bottom {
+  width: 100%;
+  height: 13px;
+  background: var(--berry);
+  border-radius: 20px;
+  margin-top: 15px;
+  opacity: .75;
+}
+
+.shop-footer {
+  margin-top: 30px;
+  font-family: 'Caveat', cursive;
+  font-size: 23px;
+}
+
+/* DREAM COLLECTION */
+
+#collection {
+  background: linear-gradient(155deg, #c9b7f2, #a9d9ed 65%, #b8dfc7);
+  padding: 65px 20px 80px;
+  text-align: center;
+}
+
+.collection-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  max-width: 850px;
+  margin: 35px auto;
+}
+
+.dream-card {
+  background: var(--white);
+  border-radius: 24px;
+  padding: 25px 15px;
+  box-shadow: 0 7px 0 rgba(98,80,120,.15);
+  transition: .25s;
+  cursor: pointer;
+  color: var(--berry);
+}
+
+.dream-card:hover {
+  transform: translateY(-8px) rotate(1deg);
+}
+
+.dream-card .icon {
+  font-size: 48px;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.dream-card h3 {
+  font-family: 'Baloo 2', cursive;
+  font-size: 19px;
+}
+
+.dream-card p {
+  font-size: 12px;
+  opacity: .65;
+  margin-top: 5px;
+}
+
+.collection-footnote {
+  font-family: 'Caveat', cursive;
+  font-size: 23px;
+}
+
+/* MODAL */
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: rgba(62,48,78,.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  backdrop-filter: blur(7px);
+}
+
+.modal-card {
+  width: min(420px, 100%);
+  background: var(--white);
+  border: 4px solid var(--pink);
+  border-radius: 28px;
+  padding: 30px 25px;
+  text-align: center;
+  box-shadow: 0 12px 0 rgba(62,48,78,.15);
+  animation: pop .3s ease;
+}
+
+@keyframes pop {
+  from { transform: scale(.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.modal-icon {
+  font-size: 54px;
+}
+
+.modal-card h2 {
+  font-family: 'Baloo 2', cursive;
+  font-size: 27px;
+  margin: 8px 0;
+}
+
+.modal-card p {
+  line-height: 1.8;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+/* FINAL GIFT */
+
+#gift {
+  background:
+    radial-gradient(circle at 50% 30%, #fff7e8, transparent 55%),
+    linear-gradient(145deg, #f3afc7, #c9b7f2);
+  padding: 70px 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.gift-box {
+  font-size: 110px;
+  margin: 25px 0;
+  cursor: pointer;
+  transition: .3s;
+  filter: drop-shadow(0 10px 5px rgba(98,80,120,.15));
+}
+
+.gift-box:hover {
+  transform: scale(1.1) rotate(-7deg);
+}
+
+.letter {
+  width: min(500px, 100%);
+  background: var(--white);
+  padding: 35px 27px;
+  border-radius: 24px;
+  box-shadow: 0 10px 0 rgba(98,80,120,.15);
+  text-align: left;
+  margin-top: 20px;
+  animation: pop .4s ease;
+}
+
+.letter-label {
+  font-size: 10px;
+  letter-spacing: 3px;
+  font-weight: 900;
+  opacity: .55;
+}
+
+.letter h2 {
+  font-family: 'Baloo 2', cursive;
+  font-size: 30px;
+  margin: 10px 0 15px;
+}
+
+.letter p {
+  line-height: 1.9;
+  font-size: 14px;
+  white-space: pre-line;
+}
+
+.signature {
+  font-family: 'Caveat', cursive;
+  font-size: 26px;
+  margin-top: 20px;
+}
+
+/* MUSIC CONTROL */
+
+.music-control {
+  position: fixed;
+  bottom: 18px;
+  right: 18px;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 15px;
+  border-radius: 40px;
+  background: var(--white);
+  color: var(--berry);
+  box-shadow: 0 4px 15px rgba(98,80,120,.18);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.music-control button {
+  background: var(--lilac);
+  color: var(--berry);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  font-size: 13px;
+}
+
+/* PARTICLES */
+
+.particle {
+  position: fixed;
+  z-index: 60;
+  pointer-events: none;
+  font-size: 18px;
+  animation: particleUp 1.2s ease-out forwards;
+}
+
+@keyframes particleUp {
+  from { transform: translateY(0) scale(1); opacity: 1; }
+  to { transform: translateY(-100px) scale(.3); opacity: 0; }
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 650px) {
+  .artifact-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .collection-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .shelf-area {
+    padding: 18px 12px;
+  }
+
+  .artifact {
+    min-height: 130px;
+  }
+
+  .music-control {
+    bottom: 12px;
+    right: 12px;
+  }
+}
+
+@media (max-width: 380px) {
+  .collection-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="ambient" id="ambient"></div>
+
+<!-- BACKGROUND MUSIC -->
+<audio id="bgMusic" src="seasons.m4a" loop preload="auto"></audio>
+
+<!-- MUSIC CONTROL -->
+<div class="music-control">
+  <button id="musicToggle" aria-label="Pause music">♫</button>
+  <span id="musicLabel">Dreamy tunes</span>
+</div>
+
+<!-- OPENING SCREEN -->
+<section class="screen" id="opening">
+
+  <div class="opening-content">
+
+    <p class="eyebrow">A PLACE BETWEEN DREAMS & REALITY</p>
+
+    <h1 class="opening-title">
+      The Little
+      <span>Dream Shop</span>
+    </h1>
+
+    <p class="opening-subtitle">
+      A tiny shop for the things words cannot hold.
+    </p>
+
+    <div class="shop-illustration floaty">
+
+      <div class="shop-roof"></div>
+
+      <div class="shop-building">
+
+        <div class="shop-sign">DREAM SHOP ✦</div>
+
+        <div class="shop-window"></div>
+
+        <div class="shop-door"></div>
+
+      </div>
+
+      <div class="morrow">🦋</div>
+
+    </div>
+
+    <button class="main-button" id="enterButton">
+      ENTER THE DREAM SHOP ✦
+    </button>
+
+    <p class="opening-note">
+      Best explored with sound on.
+    </p>
+
+  </div>
+
+</section>
+
+<!-- SHOP INTERIOR -->
+<section class="screen hidden" id="shop">
+
+  <div class="welcome-morrow floaty">🦋</div>
+
+  <p class="eyebrow">OH, YOU'RE HERE!</p>
+
+  <h2 class="section-heading">Welcome, little dreamer.</h2>
+
+  <p class="section-subtitle">
+    Morrow has been waiting for you...
+  </p>
+
+  <div class="shelf-area">
+
+    <h3 class="shelf-label">✦ THE LITTLE SHELF OF WONDERS ✦</h3>
+
+    <div class="artifact-grid">
+
+      <button class="artifact" data-title="A Pocketful of Stars"
+        data-description="Somewhere in the universe, there are little stars that shine just for you. Keep this one close whenever the world feels a little too big.">
+        <span class="artifact-icon">🌟</span>
+        <span class="artifact-name">Pocketful of Stars</span>
+        <span class="artifact-hint">tap to discover</span>
+      </button>
+
+      <button class="artifact" data-title="A Cloud of Comfort"
+        data-description="A little cloud, soft enough to hold all the things you cannot say out loud. May it remind you that you deserve gentle days, too.">
+        <span class="artifact-icon">☁️</span>
+        <span class="artifact-name">Cloud of Comfort</span>
+        <span class="artifact-hint">tap to discover</span>
+      </button>
+
+      <button class="artifact" data-title="A Tiny Moon"
+        data-description="For the nights when you need a little light. The moon may be far away, but its glow still finds its way to you.">
+        <span class="artifact-icon">🌙</span>
+        <span class="artifact-name">A Tiny Moon</span>
+        <span class="artifact-hint">tap to discover</span>
+      </button>
+
+      <button class="artifact" data-title="A Jar of Sunshine"
+        data-description="A small collection of warm afternoons, silly laughter, and all the little things that make an ordinary day feel special.">
+        <span class="artifact-icon">🍯</span>
+        <span class="artifact-name">Jar of Sunshine</span>
+        <span class="artifact-hint">tap to discover</span>
+      </button>
+
+    </div>
+
+    <div class="shelf-bottom"></div>
+
+  </div>
+
+  <p class="shop-footer">
+    Take your time. Nothing here is in a hurry.
+  </p>
+
+  <button class="main-button" style="margin-top:25px"
+    onclick="goTo('collection')">
+    EXPLORE THE DREAMS →
+  </button>
+
+</section>
+
+<!-- DREAM COLLECTION -->
+<section class="screen hidden" id="collection">
+
+  <p class="eyebrow">A COLLECTION OF LITTLE THINGS</p>
+
+  <h2 class="section-heading">Dreams in a Bottle</h2>
+
+  <p class="section-subtitle">
+    Pick one. Morrow has something to tell you.
+  </p>
+
+  <div class="collection-grid">
+
+    <div class="dream-card" data-title="The Blue Hour"
+      data-description="A reminder that even the quietest moments can be beautiful. Not every day needs to be extraordinary to be worth remembering.">
+      <span class="icon">🫧</span>
+      <h3>The Blue Hour</h3>
+      <p>A little pause in time.</p>
+    </div>
+
+    <div class="dream-card" data-title="The Golden Afternoon"
+      data-description="May your days be filled with warm sunlight, good company, and unexpected reasons to smile.">
+      <span class="icon">🌼</span>
+      <h3>Golden Afternoon</h3>
+      <p>Warmth in a tiny bottle.</p>
+    </div>
+
+    <div class="dream-card" data-title="The Cloud Nine"
+      data-description="For all the beautiful possibilities waiting ahead. You have so many little adventures yet to discover.">
+      <span class="icon">🎈</span>
+      <h3>Cloud Nine</h3>
+      <p>Something to look forward to.</p>
+    </div>
+
+    <div class="dream-card" data-title="The Moon Garden"
+      data-description="A garden that blooms after dark. A gentle reminder that growing does not always have to happen in daylight.">
+      <span class="icon">🌷</span>
+      <h3>Moon Garden</h3>
+      <p>For the quiet dreamers.</p>
+    </div>
+
+    <div class="dream-card" data-title="The Starry Postcard"
+      data-description="If the universe could send you a postcard, it would probably say: keep going, there are lovely things ahead.">
+      <span class="icon">💌</span>
+      <h3>Starry Postcard</h3>
+      <p>A message from somewhere.</p>
+    </div>
+
+    <div class="dream-card" data-title="The Little Wish"
+      data-description="Close your eyes and make a wish. You do not need to tell anyone what it is. Some things are lovely just being yours.">
+      <span class="icon">🪄</span>
+      <h3>The Little Wish</h3>
+      <p>One wish, just for you.</p>
+    </div>
+
+  </div>
+
+  <p class="collection-footnote">
+    There is one more thing waiting at the back of the shop...
+  </p>
+
+  <button class="main-button" style="margin-top:25px"
+    onclick="goTo('gift')">
+    FIND THE LAST PACKAGE ✦
+  </button>
+
+</section>
+
+<!-- FINAL GIFT -->
+<section class="screen hidden" id="gift">
+
+  <p class="eyebrow">A SPECIAL DELIVERY</p>
+
+  <h2 class="section-heading">One last little thing...</h2>
+
+  <p class="section-subtitle">
+    Morrow saved this one especially for you.
+  </p>
+
+  <div class="gift-box" id="giftBox" role="button"
+    tabindex="0" aria-label="Open your gift">
+    🎁
+  </div>
+
+  <p id="giftHint" style="font-size:13px; opacity:.7">
+    Tap the little package to open it.
+  </p>
+
+  <div class="letter hidden" id="letter">
+
+    <p class="letter-label">A LITTLE LETTER FROM THE DREAM SHOP</p>
+
+    <h2>Dear little dreamer,</h2>
+
+    <p>
+      Some things are too lovely to fit inside a box.
+
+      So here's a tiny corner of the internet, filled with little stars, imaginary clouds, and a few gentle reminders.
+
+      I hope you find something here that makes your day a little brighter.
+
+      And whenever the world gets a little too loud, remember that you can always find a little wonder in the smallest things.
+
+      Thank you for visiting this tiny shop. I hope you leave with a pocketful of dreams.
+    </p>
+
+    <div class="signature">
+      With a little bit of magic, ♡
+      <br>
+      Morrow & the Dream Shop
+    </div>
+
+  </div>
+
+  <button class="small-button" style="margin-top:30px"
+    onclick="goTo('opening')">
+    ↶ Visit again
+  </button>
+
+</section>
+
+<!-- MODAL -->
+<div class="modal hidden" id="modal">
+  <div class="modal-card">
+
+    <div class="modal-icon" id="modalIcon">🌟</div>
+
+    <h2 id="modalTitle">A little wonder</h2>
+
+    <p id="modalDescription"></p>
+
+    <button class="main-button" id="closeModal">
+      KEEP THIS WITH YOU ♡
+    </button>
+
+  </div>
+</div>
+
+<script>
+/* =================================
+   ELEMENTS
+================================= */
+
+const music = document.getElementById('bgMusic');
+const musicToggle = document.getElementById('musicToggle');
+const musicLabel = document.getElementById('musicLabel');
+
+const enterButton = document.getElementById('enterButton');
+
+let musicPlaying = false;
+let musicStarted = false;
+
+/* =================================
+   FIRST CLICK: START MUSIC + ENTER
+================================= */
+
+enterButton.addEventListener('click', enterShop);
+
+async function enterShop() {
+
+  // Start music directly from the first user interaction.
+  if (!musicStarted) {
+    try {
+      music.volume = 0.45;
+      await music.play();
+
+      musicStarted = true;
+      musicPlaying = true;
+
+      musicToggle.textContent = 'Ⅱ';
+      musicLabel.textContent = 'Now playing...';
+
+    } catch (error) {
+      musicLabel.textContent = 'Tap ♫ to play music';
+    }
+  }
+
+  playSound(850);
+  createParticles(25);
+
+  goTo('shop');
+}
+
+/* =================================
+   MUSIC PLAYER
+================================= */
+
+musicToggle.addEventListener('click', async () => {
+
+  if (music.paused) {
+    try {
+      await music.play();
+
+      musicPlaying = true;
+      musicStarted = true;
+
+      musicToggle.textContent = 'Ⅱ';
+      musicLabel.textContent = 'Now playing...';
+
+    } catch (error) {
+      musicLabel.textContent = 'Music unavailable';
+    }
+
+  } else {
+
+    music.pause();
+
+    musicPlaying = false;
+    musicToggle.textContent = '♫';
+    musicLabel.textContent = 'Paused';
+  }
+
+});
+
+music.addEventListener('ended', () => {
+  musicPlaying = false;
+});
+
+/* =================================
+   SCREEN NAVIGATION
+================================= */
+
+function goTo(screenId) {
+
+  document.querySelectorAll('.screen').forEach(screen => {
+    screen.classList.add('hidden');
+  });
+
+  document.getElementById(screenId).classList.remove('hidden');
+
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+
+  playSound(550);
+}
+
+/* =================================
+   WEB AUDIO SOUND EFFECTS
+================================= */
+
+let audioContext;
+
+function playSound(frequency = 600) {
+
+  try {
+
+    if (!audioContext) {
+      audioContext = new (
+        window.AudioContext ||
+        window.webkitAudioContext
+      )();
+    }
+
+    if (audioContext.state === 'suspended') {
+      audioContext.resume();
+    }
+
+    const oscillator = audioContext.createOscillator();
+    const gain = audioContext.createGain();
+
+    oscillator.type = 'sine';
+    oscillator.frequency.setValueAtTime(
+      frequency,
+      audioContext.currentTime
+    );
+
+    oscillator.frequency.exponentialRampToValueAtTime(
+      frequency * 1.5,
+      audioContext.currentTime + .12
+    );
+
+    gain.gain.setValueAtTime(
+      .08,
+      audioContext.currentTime
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+      .001,
+      audioContext.currentTime + .2
+    );
+
+    oscillator.connect(gain);
+    gain.connect(audioContext.destination);
+
+    oscillator.start();
+    oscillator.stop(audioContext.currentTime + .2);
+
+  } catch (error) {
+    console.log('Sound effect unavailable.');
+  }
+
+}
+
+/* =================================
+   FLOATING PARTICLES
+================================= */
+
+function createParticles(amount = 12) {
+
+  const symbols = ['✦', '✧', '♡', '⋆', '✨', '·'];
+
+  for (let i = 0; i < amount; i++) {
+
+    const particle = document.createElement('span');
+
+    particle.className = 'particle';
+
+    particle.textContent =
+      symbols[Math.floor(Math.random() * symbols.length)];
+
+    particle.style.left = Math.random() * 100 + 'vw';
+    particle.style.top = Math.random() * 80 + 'vh';
+
+    particle.style.color = [
+      '#ffffff',
+      '#f6d875',
+      '#f3afc7',
+      '#c9b7f2'
+    ][Math.floor(Math.random() * 4)];
+
+    document.body.appendChild(particle);
+
+    setTimeout(() => particle.remove(), 1300);
+  }
+
+}
+
+/* =================================
+   AMBIENT STARS
+================================= */
+
+function createAmbientStars() {
+
+  const ambient = document.getElementById('ambient');
+
+  for (let i = 0; i < 25; i++) {
+
+    const star = document.createElement('span');
+
+    star.className = 'sparkle';
+    star.textContent = '✦';
+
+    star.style.left = Math.random() * 100 + '%';
+    star.style.top = Math.random() * 100 + '%';
+
+    star.style.fontSize =
+      (8 + Math.random() * 12) + 'px';
+
+    star.style.animationDelay =
+      Math.random() * 3 + 's';
+
+    ambient.appendChild(star);
+  }
+
+}
+
+createAmbientStars();
+
+/* =================================
+   ARTIFACT MODALS
+================================= */
+
+const modal = document.getElementById('modal');
+
+const modalTitle = document.getElementById('modalTitle');
+const modalDescription = document.getElementById('modalDescription');
+const modalIcon = document.getElementById('modalIcon');
+
+document.querySelectorAll('.artifact').forEach((artifact) => {
+
+  artifact.addEventListener('click', () => {
+
+    modalTitle.textContent = artifact.dataset.title;
+    modalDescription.textContent = artifact.dataset.description;
+
+    modalIcon.textContent =
+      artifact.querySelector('.artifact-icon').textContent;
+
+    modal.classList.remove('hidden');
+
+    playSound(700);
+    createParticles(8);
+
+  });
+
+});
+
+/* =================================
+   DREAM CARD MODALS
+================================= */
+
+document.querySelectorAll('.dream-card').forEach((card) => {
+
+  card.addEventListener('click', () => {
+
+    modalTitle.textContent = card.dataset.title;
+    modalDescription.textContent = card.dataset.description;
+
+    modalIcon.textContent =
+      card.querySelector('.icon').textContent;
+
+    modal.classList.remove('hidden');
+
+    playSound(750);
+    createParticles(8);
+
+  });
+
+});
+
+/* =================================
+   CLOSE MODAL
+================================= */
+
+document.getElementById('closeModal').addEventListener('click', () => {
+
+  modal.classList.add('hidden');
+
+  playSound(500);
+
+});
+
+modal.addEventListener('click', (event) => {
+
+  if (event.target === modal) {
+    modal.classList.add('hidden');
+  }
+
+});
+
+/* =================================
+   GIFT REVEAL
+================================= */
+
+const giftBox = document.getElementById('giftBox');
+const letter = document.getElementById('letter');
+const giftHint = document.getElementById('giftHint');
+
+function openGift() {
+
+  if (!letter.classList.contains('hidden')) return;
+
+  letter.classList.remove('hidden');
+
+  giftBox.textContent = '💝';
+
+  giftHint.textContent =
+    'A little something, just for you.';
+
+  playSound(900);
+  createParticles(35);
+
+}
+
+giftBox.addEventListener('click', openGift);
+
+giftBox.addEventListener('keydown', (event) => {
+
+  if (event.key === 'Enter' || event.key === ' ') {
+    event.preventDefault();
+    openGift();
+  }
+
+});
+
+/* =================================
+   CURSOR SPARKLES
+================================= */
+
+let lastSparkle = 0;
+
+document.addEventListener('pointermove', (event) => {
+
+  const now = Date.now();
+
+  if (now - lastSparkle < 100) return;
+
+  lastSparkle = now;
+
+  const sparkle = document.createElement('span');
+
+  sparkle.className = 'particle';
+  sparkle.textContent = '✧';
+
+  sparkle.style.left = event.clientX + 'px';
+  sparkle.style.top = event.clientY + 'px';
+  sparkle.style.color = '#fff';
+
+  document.body.appendChild(sparkle);
+
+  setTimeout(() => sparkle.remove(), 1000);
+
+});
+
+/* =================================
+   RANDOM GREETING
+================================= */
+
+const greetings = [
+  'Morrow says hello! 🦋',
+  'A little magic is waiting for you.',
+  'You look like someone who collects dreams.',
+  'Careful, this place is full of wonders.',
+  'Morrow saved a little surprise for you.'
+];
+
+const openingSubtitle =
+  document.querySelector('.opening-subtitle');
+
+let greetingIndex = 0;
+
+setInterval(() => {
+
+  greetingIndex =
+    (greetingIndex + 1) % greetings.length;
+
+  openingSubtitle.textContent =
+    greetings[greetingIndex];
+
+}, 5000);
+
+</script>
+
+</body>
+</html>
